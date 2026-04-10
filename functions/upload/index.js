@@ -72,13 +72,7 @@ export async function onRequest(context) {  // Contents of context object
     return await processFileUpload(context);
 }
 
-export async function onRequestPost(context) {
-    return onRequest(context);
-}
 
-export async function onRequestGet(context) {
-    return onRequest(context);
-}
 
 
 // 通用文件上传处理函数
