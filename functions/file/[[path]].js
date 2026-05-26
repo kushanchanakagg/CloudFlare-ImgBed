@@ -240,7 +240,7 @@ async function handleTelegramChunkedFile(context, imgRecord, encodedFileName, fi
 
     // 构建响应头
     const headers = new Headers();
-    setCommonHeaders(headers, encodedFileName, fileType, getChunkedFileCacheControl(context));
+    setCommonHeaders(headers, encodedFileName, fileType, getChunkedFileCacheControl(context), context.forceDownload);
     headers.set('Content-Length', totalSize.toString());
 
     // 添加ETag支持
@@ -431,7 +431,7 @@ async function handleDiscordChunkedFile(context, imgRecord, encodedFileName, fil
 
     // 构建响应头
     const headers = new Headers();
-    setCommonHeaders(headers, encodedFileName, fileType, getChunkedFileCacheControl(context));
+    setCommonHeaders(headers, encodedFileName, fileType, getChunkedFileCacheControl(context), context.forceDownload);
     headers.set('Content-Length', totalSize.toString());
 
     // 添加ETag支持
