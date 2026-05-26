@@ -55,8 +55,9 @@ export const FILE_CACHE_CONTROL = {
 };
 
 // 公共响应头设置函数
-export function setCommonHeaders(headers, encodedFileName, fileType, cacheControl = FILE_CACHE_CONTROL.PUBLIC) {
-    headers.set('Content-Disposition', `inline; filename="${encodedFileName}"; filename*=UTF-8''${encodedFileName}`);
+export function setCommonHeaders(headers, encodedFileName, fileType, cacheControl = FILE_CACHE_CONTROL.PUBLIC, forceDownload = false) {
+    const disposition = forceDownload ? 'attachment' : 'inline';
+    headers.set('Content-Disposition', `${disposition}; filename="${encodedFileName}"; filename*=UTF-8''${encodedFileName}`);
     headers.set('Access-Control-Allow-Origin', '*');
     headers.set('Accept-Ranges', 'bytes');
     headers.set('Vary', 'Range');
