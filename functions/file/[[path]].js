@@ -42,6 +42,10 @@ export async function onRequest(context) {  // Contents of context object
     const Referer = request.headers.get('Referer')
     context.Referer = Referer;
 
+    // 检查是否为下载模式
+    const forceDownload = url.searchParams.get('download') !== null;
+    context.forceDownload = forceDownload;
+
     context.fileAccess = await buildFileAccessContext(context);
 
     // 检查引用域名是否被允许
@@ -154,7 +158,7 @@ export async function onRequest(context) {  // Contents of context object
         }
 
         const headers = new Headers(response.headers);
-        setCommonHeaders(headers, encodedFileName, fileType, getFileCacheControl(context));
+        setCommonHeaders(headers, encodedFileName, fileType, getFileCacheControl(context), context.forceDownload);
 
         const newRes = new Response(response.body, {
             status: response.status,
